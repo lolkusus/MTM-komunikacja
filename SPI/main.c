@@ -1,5 +1,6 @@
 #include <LPC213X.H>
 #include <math.h>
+#include "sine.h"
 
 /*
 	INSTRUKCJA STR 127:
@@ -95,14 +96,31 @@ void DAC_MCP4921_Set_mV(unsigned int uiVoltage)
 
 int main()
 {
-	unsigned int uiSinValue = 0;
-	double dTime = 0;
+	//unsigned int uiSinValue = 0;
+	//double dTime = 0;
+	unsigned int uiTime = 0;
 	
 	while (1)
 	{
+		/*		klasyczne podejscie, ale z lekkim usprawnieniem - brak dzielenia
 		uiSinValue = ((SIN_AMPLITUDE * sin(dTime*TWO_PI)) + SIN_OFFSET);
 		DAC_MCP4921_Set_mV(uiSinValue);
 		dTime = dTime + SIN_SAMPLE_TIME;
+		*/
+		
+		//podejscie szybsze = LUT
+		
+		DAC_MCP4921_Set_mV(sine[uiTime]);
+		
+		if (uiTime == 359)
+		{
+			uiTime = 0;
+		}
+		else
+		{
+			uiTime = uiTime + 1;
+		}
+		
 	}
 	
 	return 0;
