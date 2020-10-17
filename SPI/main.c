@@ -1,4 +1,5 @@
 #include <LPC213X.H>
+#include <math.h>
 
 /*
 	INSTRUKCJA STR 127:
@@ -40,6 +41,12 @@
 #define DAC_MAX_VOLTAGE 3300 //mV
 #define DAC_RESOLUTION (1<<12) //12 bit dac = 4096 steps
 
+//SINE
+#define SIN_OFFSET 1000 //srednia wartosc 1V = 1000mV
+#define SIN_AMPLITUDE 1000 // pk-pk 2V = 1V amplitude = 1000 mV
+//#define SIN_SAMPLES 360
+#define SIN_SAMPLE_TIME (double) 0.0027778 //(1/360)
+#define TWO_PI (double) 6.28318
 
 
 void DAC_MCP4921_Set(unsigned int uiVoltage)
@@ -88,11 +95,14 @@ void DAC_MCP4921_Set_mV(unsigned int uiVoltage)
 
 int main()
 {
+	unsigned int uiSinValue = 0;
+	double dTime = 0;
+	
 	while (1)
 	{
-		DAC_MCP4921_Set_mV(0);
-		DAC_MCP4921_Set_mV(500);
-		DAC_MCP4921_Set_mV(1000);
+		uiSinValue = ((SIN_AMPLITUDE * sin(dTime*TWO_PI)) + SIN_OFFSET);
+		DAC_MCP4921_Set_mV(uiSinValue);
+		dTime = dTime + SIN_SAMPLE_TIME;
 	}
 	
 	return 0;
