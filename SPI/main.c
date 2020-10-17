@@ -40,6 +40,8 @@
 #define DAC_MAX_VOLTAGE 3300 //mV
 #define DAC_RESOLUTION (1<<12) //12 bit dac = 4096 steps
 
+
+
 void DAC_MCP4921_Set(unsigned int uiVoltage)
 {
 	unsigned short usFullData = (uiVoltage & DAC_DATA_MASK);
@@ -74,15 +76,23 @@ void DAC_MCP4921_Set(unsigned int uiVoltage)
 	
 }
 
+void DAC_MCP4921_Set_mV(unsigned int uiVoltage)
+{
+	unsigned int uiBitValue;
+	
+	uiBitValue = (uiVoltage*DAC_RESOLUTION)/DAC_MAX_VOLTAGE;
+	
+	DAC_MCP4921_Set(uiBitValue);
+}
+
 
 int main()
 {
-	unsigned short test = 0;
-	
 	while (1)
 	{
-		DAC_MCP4921_Set(test&0x0FFF);
-		test++;
+		DAC_MCP4921_Set_mV(0);
+		DAC_MCP4921_Set_mV(500);
+		DAC_MCP4921_Set_mV(1000);
 	}
 	
 	return 0;
