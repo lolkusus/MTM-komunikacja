@@ -23,21 +23,39 @@
 #define VIC_IIC_CHANNER_NR 9
 #define VIC_IRQ_SLOT_ENABLE (1<<5) //VICVectCntl
 
+//PCF8574
+#define PCF_ADDRESS 0x40 //address do zapisu (lsb to flaga zapis/odczyt)
+
+typedef struct IIC_Buffer
+{
+	unsigned char ucAddress;
+	unsigned char ucData;
+}IIC_Buffer;
+
+IIC_Buffer sIIC_Buffer;
+
+void Delay(unsigned int uiDelay) //funkcja delay z ppsw
+{
+	unsigned int uiDelayCounter;
+	uiDelay = uiDelay * 7500;
+	for(uiDelayCounter=0; uiDelayCounter < uiDelay; uiDelayCounter++){
+	}
+}
+
 void ISR_Start_Transmitted()
 {
-	I2C0DAT = 0x40; //address
-	I2C0CONCLR = (STA_MASK | SI_MASK); //wyczyscic flage przerwania i flage startu
+	I2C0DAT = sIIC_Buffer.ucAddress; //address
+	I2C0CONCLR = STA_MASK; //wyczysci flage startu
 }
 
 void ISR_Slave_Addr_Ack()
 {
-	I2C0DAT = 0x69; //dane
-	I2C0CONCLR = SI_MASK; //czysc tylko flage przerwania
+	I2C0DAT = sIIC_Buffer.ucData; //dane
 }
 
 void ISR_Slave_Data_Ack()
 {
-	I2C0CONSET = (I2EN_MASK | STO_MASK);
+	I2C0CONSET = STO_MASK;	//zakonczenie nadawania (ustawienie flagi stop)
 }
 
 __irq void I2C_Interrupt()
@@ -56,9 +74,10 @@ __irq void I2C_Interrupt()
 			ISR_Slave_Data_Ack();
 			break;
 		
-		default:
+		default:	//stanow jest 28, ale tylko powyzsze 3 potrzebne sa do nadawania
 			break;
 	}
+	I2C0CONCLR = SI_MASK; //czysc flage przerwania IIC
 	VICVectAddr=0x00; //strona 102 sugeruje zerowanie tej wartosci pod koniec kazdego isr
 }
 
@@ -72,17 +91,27 @@ void I2C_Init(void)
 	I2C0SCLL = 0x80; 		//dane z instrukcji do zadania
 
 	VICIntEnable |= (1<<VIC_IIC_CHANNER_NR);
-	VICVectCntl0 = (VIC_IRQ_SLOT_ENABLE | VIC_IIC_CHANNER_NR); 
+	VICVectCntl0 = (VIC_IRQ_SLOT_ENABLE | VIC_IIC_CHANNER_NR); //ustawienie przerwania iic na slocie irq0 i z vectorem na funkcje przerwania
 	VICVectAddr0  =(unsigned long) I2C_Interrupt;
 }
 
-
+void PCF8574_Write (unsigned char ucData)
+{
+	sIIC_Buffer.ucAddress = PCF_ADDRESS;
+	sIIC_Buffer.ucData = ucData;
+	I2C0CONSET = STA_MASK;	//inicjacja transmisji (sytawienie flagi startu)
+}
 
 int main()
 {
+	unsigned char ucCounterValue = 0;
+	
 	I2C_Init();
 	
-	I2C0CONSET = (I2EN_MASK | STA_MASK);
-	
-	while(1){}
+	while(1)
+	{
+		PCF8574_Write(ucCounterValue);
+		ucCounterValue++;
+		Delay(250);
+	}
 }
