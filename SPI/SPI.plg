@@ -4,17 +4,16 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\Dominik\Documents\GitHub\MTM-komunikacja\SPI\SPI.uvproj
-Project File Date:  10/20/2020
+Project File Date:  10/21/2020
 
 <h2>Output:</h2>
 Rebuild target 'Target 1'
 assembling Startup.s...
 compiling main.c...
-main.c(126): warning:  #111-D: statement is unreachable
 linking...
 Program Size: Code=1484 RO-data=32 RW-data=1440 ZI-data=1256  
 FromELF: creating hex file...
-".\SPI.axf" - 0 Errors, 1 Warning(s).
+".\SPI.axf" - 0 Errors, 0 Warning(s).
 Rebuild target 'Target 1'
 assembling Startup.s...
 compiling main.c...
