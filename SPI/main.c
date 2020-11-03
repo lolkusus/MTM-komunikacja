@@ -103,7 +103,7 @@ int main()
 	unsigned int uiTime = 0;
 	unsigned int uiSinSampleCounter;
 	
-	for (uiSinSampleCounter = 0; uiSinSampleCounter < 360; uiSinSampleCounter++)
+	for (uiSinSampleCounter = 0; uiSinSampleCounter < SIN_SAMPLES; uiSinSampleCounter++)
 	{
 		sin_ram[uiSinSampleCounter] = ((SIN_AMPLITUDE * sin((TWO_PI*uiSinSampleCounter)/SIN_SAMPLES)) + SIN_OFFSET);
 	}

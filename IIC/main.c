@@ -1,11 +1,11 @@
 #include <LPC213X.H>
 
 //PINSEL0
-#define SCL_MASK (1<<4)
-#define SDA_MASK (1<<6)
+#define SCL_PINSEL_MASK (1<<4)
+#define SDA_PINSEL_MASK (1<<6)
 
 #define IIC_MASK 0x00F0
-#define IIC_CONFIG (SCL_MASK | SDA_MASK)
+#define IIC_CONFIG (SCL_PINSEL_MASK | SDA_PINSEL_MASK)
 
 //I2C0CONSET/CLR 
 #define I2EN_MASK (1<<6) //IIC Enable
@@ -14,10 +14,14 @@
 #define SI_MASK (1<<3) //Interupt flag
 #define AA_MASK (1<<2) //Assert Ack
 
+//I2C0SCLH/I2C0SCLL
+#define IIC_HIGH_CLOCK_VALUE	0x80	//dane z instrukcji zadania
+#define IIC_LOW_CLOCK_VALUE		0x80 
+
 //I2C0STAT
-#define IIC_STATUS_8 	0x08	//Start condition transmitted
-#define IIC_STATUS_18 0x18	//Slave address ACK
-#define IIC_STATUS_28 0x28	//Slave data ACK
+#define IIC_START_TRANSMITTER_STATUS 	0x08	//Start condition transmitted
+#define IIC_SLAVE_ADDR_ACK_STATUS 0x18	//Slave address ACK
+#define IIC_SLAVE_DATA_ACK_STATUS 0x28	//Slave data ACK
 
 //VIC
 #define VIC_IIC_CHANNER_NR 9
@@ -41,7 +45,7 @@ void Delay(unsigned int uiDelay) //funkcja delay z ppsw
 	for(uiDelayCounter=0; uiDelayCounter < uiDelay; uiDelayCounter++){
 	}
 }
-
+/*
 void ISR_Start_Transmitted()
 {
 	I2C0DAT = sIIC_Buffer.ucAddress; //address
@@ -57,28 +61,29 @@ void ISR_Slave_Data_Ack()
 {
 	I2C0CONSET = STO_MASK;	//zakonczenie nadawania (ustawienie flagi stop)
 }
-
+*/
 __irq void I2C_Interrupt()
 {
 	switch (I2C0STAT)
 	{
-		case IIC_STATUS_8:
-			ISR_Start_Transmitted();
+		case IIC_START_TRANSMITTER_STATUS:
+			I2C0DAT = sIIC_Buffer.ucAddress; //address
+			I2C0CONCLR = STA_MASK; //wyczysci flage startu
 			break;
 		
-		case IIC_STATUS_18:
-			ISR_Slave_Addr_Ack();
+		case IIC_SLAVE_ADDR_ACK_STATUS:
+			I2C0DAT = sIIC_Buffer.ucData; //dane
 			break;
 		
-		case IIC_STATUS_28:
-			ISR_Slave_Data_Ack();
+		case IIC_SLAVE_DATA_ACK_STATUS:
+			I2C0CONSET = STO_MASK;	//zakonczenie nadawania (ustawienie flagi stop)
 			break;
 		
 		default:	//stanow jest 28, ale tylko powyzsze 3 potrzebne sa do nadawania
 			break;
 	}
 	I2C0CONCLR = SI_MASK; //czysc flage przerwania IIC
-	VICVectAddr=0x00; //strona 102 sugeruje zerowanie tej wartosci pod koniec kazdego isr
+	VICVectAddr = 0x00; //strona 102 sugeruje zerowanie tej wartosci pod koniec kazdego isr
 }
 
 void I2C_Init(void)
@@ -87,8 +92,8 @@ void I2C_Init(void)
 	
 	I2C0CONCLR = (I2EN_MASK | STA_MASK | SI_MASK | AA_MASK); 
 	I2C0CONSET = I2EN_MASK; 
-	I2C0SCLH = 0x80; 		//dane z instrukcji do zadania
-	I2C0SCLL = 0x80; 		//dane z instrukcji do zadania
+	I2C0SCLH = IIC_HIGH_CLOCK_VALUE; 		//dane z instrukcji do zadania
+	I2C0SCLL = IIC_HIGH_CLOCK_VALUE; 		//dane z instrukcji do zadania
 
 	VICIntEnable |= (1<<VIC_IIC_CHANNER_NR);
 	VICVectCntl0 = (VIC_IRQ_SLOT_ENABLE | VIC_IIC_CHANNER_NR); //ustawienie przerwania iic na slocie irq0 i z vectorem na funkcje przerwania
