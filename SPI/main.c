@@ -43,7 +43,7 @@
 #define DAC_BUF_CONTROL_bm 		(1<<14) //0 = unbuffered, 1 = buffered
 #define DAC_GAIN_CONTROL_bm 	(1<<13)	//0 = output x2, 1 = output x1
 #define DAC_nSHDN_CONTROL_bm	(1<<12) //0 = shutdown, 1 = operational
-#define DAC_DATA_bm 					0x0FFF
+#define DAC_VOLTAGE_bm 					0x0FFF
 #define DAC_MAX_VOLTAGE 			3300 //mV
 #define DAC_RESOLUTION 				4096 //12 bit dac = 4096 steps
 
@@ -55,16 +55,11 @@
 #define SIN_SAMPLE_TIME (double) 	0.0027778 //(1/360)
 
 
-
 void DAC_MCP4921_Set(unsigned int uiVoltage)
 {
-	unsigned short usFullData = (uiVoltage & DAC_DATA_bm); //!dac control word
-	unsigned char ucHighData;
-	unsigned char ucLowData;	//!zmiana na low byte
-	
-	usFullData = (usFullData | DAC_GAIN_CONTROL_bm | DAC_nSHDN_CONTROL_bm);
-	ucHighData = ((usFullData >> 8) & 0xFF);
-	ucLowData = (usFullData & 0xFF);
+	unsigned short usDacControlWord = ((uiVoltage & DAC_VOLTAGE_bm) | (DAC_GAIN_CONTROL_bm | DAC_nSHDN_CONTROL_bm)); //!dac control word
+	unsigned char ucHighByte;
+	unsigned char ucLowByte;	//!zmiana na low byte
 	
 	//inicjowanie
 	IO0DIR = (IO0DIR | CS_DAC_bm);
@@ -74,13 +69,15 @@ void DAC_MCP4921_Set(unsigned int uiVoltage)
 	
 	//wysylanie
 	IO0CLR = CS_DAC_bm;
-	S0SPDR = ucHighData;
+	ucHighByte = ((usDacControlWord >> 8) & 0xFF);
+	S0SPDR = ucHighByte;
 	
 	while ((S0SPSR & SPIF_bm) == 0)
 	{
 	}
 	
-	S0SPDR = ucLowData;
+	ucLowByte = (usDacControlWord & 0xFF);
+	S0SPDR = ucLowByte;
 	
 	while ((S0SPSR & SPIF_bm) == 0)
 	{
@@ -99,26 +96,25 @@ void DAC_MCP4921_Set_mV(unsigned int uiVoltage)
 	DAC_MCP4921_Set(uiBitValue);
 }
 
+unsigned int sin_ram[360];
 
 int main()
 {
-	//unsigned int uiSinValue = 0;
-	//double dTime = 0;
 	unsigned int uiTime = 0;
+	unsigned int uiSinSampleCounter;
+	
+	for (uiSinSampleCounter = 0; uiSinSampleCounter < 360; uiSinSampleCounter++)
+	{
+		sin_ram[uiSinSampleCounter] = ((SIN_AMPLITUDE * sin((TWO_PI*uiSinSampleCounter)/SIN_SAMPLES)) + SIN_OFFSET);
+	}
+	
+
 	
 	while (1)
 	{
-		/*		klasyczne podejscie, ale z lekkim usprawnieniem - brak dzielenia
-		uiSinValue = ((SIN_AMPLITUDE * sin(dTime*TWO_PI)) + SIN_OFFSET);
-		DAC_MCP4921_Set_mV(uiSinValue);
-		dTime = dTime + SIN_SAMPLE_TIME;
-		*/
-		
-		//podejscie szybsze = LUT
-		
 		//porowananie luta z ram/rom
 		
-		DAC_MCP4921_Set_mV(sine[uiTime]);
+		DAC_MCP4921_Set_mV(sin_flash[uiTime]);
 		
 		if (uiTime == (SIN_SAMPLES-1))
 		{
