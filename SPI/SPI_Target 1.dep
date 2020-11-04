@@ -1,6 +1,6 @@
 Dependencies for Project 'SPI', Target 'Target 1': (DO NOT MODIFY !)
 F (.\Startup.s)(0x5F8EBE29)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\main.c)(0x5FA13A7B)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+F (.\main.c)(0x5FA1405F)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-o .\main.o --omf_browse .\main.crf --depend .\main.d)
 I (C:\Keil_v5\ARM\Inc\Philips\LPC213X.H)(0x51C7FF8C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x51C7FD94)
 I (C:\Users\Dominik\Documents\GitHub\MTM-komunikacja\SPI\sine.h)(0x5FA133A4)
