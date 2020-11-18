@@ -42,7 +42,7 @@ void DAC_MCP4921_Set(unsigned int uiVoltage)
 	//inicjowanie
 	IO0DIR = (IO0DIR | CS_DAC_bm);
 
-	//wysylanie
+	//wysylanie - musze odwrocic kolejnosc byteow, najpierw idzie high, potem low
 	IO0CLR = CS_DAC_bm;
 	ucaTxArray[0] = ((usDacControlWord >> 8) & 0xFF);
 	ucaTxArray[1] = (usDacControlWord & 0xFF);
