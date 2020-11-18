@@ -1,42 +1,10 @@
 #include <LPC213X.H>
 #include <math.h>
+#include "SPI.h"
 #include "sine.h"
-
-/*
-	INSTRUKCJA STR 127:
-	The PINSEL0 register controls the functions of the pins as per the settings listed in Table 65. 
-	The direction control bit in the I0DIR register is effective only when 
-	the GPIO function is selected for a pin. For other functions, direction 
-	is controlled automatically.
-*/
-
-//PINSEL0
-#define SCK_bm 		(1<<8)
-#define MISO_bm 	(1<<10)
-#define MOSI_bm 	(1<<12)
-#define SSEL_bm 	(1<<14)	
-
-#define SPI_PINSEL_bm		0xFF00
 
 //IO0DIR
 #define CS_DAC_bm 	(1<<10) 
-
-//SPI CONTROL REGISTER S0SPCR
-#define CPHA_bm 		(1<<3)	//clock phase
-#define CPOL_bm 		(1<<4)	//clock polarity 
-#define MSTR_bm 		(1<<5) 	//1 = master, 0 = slave
-#define LSBF_bm 		(1<<6) 	//1 = lsb first, 0 = msb first
-#define SPIE_bm 		(1<<7) 	//spi interrupt enable
-
-//SPI STATUS REGISTER S0SPSR
-#define ABRT_bm 		(1<<3) 	//slave abort
-#define MODF_bm 		(1<<4) 	//mode fault
-#define ROVR_bm 		(1<<5) 	//read overrun
-#define WCOL_bm 		(1<<6) 	//write collision
-#define SPIF_bm 		(1<<7) 	//transfer complete
-
-//SPI PRESCALER REGISTER S0SPCCR
-#define SPI_CLK_DIV 0x08
 
 //DAC CONTROL WORD
 #define DAC_SEL_CONTROL_bm 		(1<<15) //0 = DACa, 1 = DACb
@@ -54,37 +22,34 @@
 #define TWO_PI (double) 6.28318
 #define SIN_SAMPLE_TIME (double) 	0.0027778 //(1/360)
 
+//SPI PRESCALER REGISTER S0SPCCR
+#define SPI_CLK_DIV 0x08
 
 void DAC_MCP4921_Set(unsigned int uiVoltage)
 {
 	unsigned short usDacControlWord = ((uiVoltage & DAC_VOLTAGE_bm) | (DAC_GAIN_CONTROL_bm | DAC_nSHDN_CONTROL_bm)); //!dac control word
-	unsigned char ucHighByte;
-	unsigned char ucLowByte;	//!zmiana na low byte
+	unsigned char ucaTxArray[2];
+	unsigned char ucaRxArray[1];
+	SPI_TransactionParams sSPI_TransactionParams;
+	
+	sSPI_TransactionParams.pucBytesForRx = ucaRxArray;
+	sSPI_TransactionParams.pucBytesForTx = ucaTxArray;
+	sSPI_TransactionParams.ucNrOfBytesForRx = 0;
+	sSPI_TransactionParams.ucNrOfBytesForTx = 2;
+	sSPI_TransactionParams.ucRxBytesOffset = 0;
+	sSPI_TransactionParams.ucTxBytesOffset = 0;
 	
 	//inicjowanie
 	IO0DIR = (IO0DIR | CS_DAC_bm);
-	PINSEL0 = ((PINSEL0 & ~SPI_PINSEL_bm) | SCK_bm | MISO_bm | MOSI_bm | SSEL_bm);
-	S0SPCR =  MSTR_bm ; 			//mode 0,0; no interrupt, master, MSB first
-	S0SPCCR = SPI_CLK_DIV; 		//dzielnik zegara systemowego do zegara spi
-	
+
 	//wysylanie
 	IO0CLR = CS_DAC_bm;
-	ucHighByte = ((usDacControlWord >> 8) & 0xFF);
-	S0SPDR = ucHighByte;
-	
-	while ((S0SPSR & SPIF_bm) == 0)
-	{
-	}
-	
-	ucLowByte = (usDacControlWord & 0xFF);
-	S0SPDR = ucLowByte;
-	
-	while ((S0SPSR & SPIF_bm) == 0)
-	{
-	}
-	
+	ucaTxArray[0] = ((usDacControlWord >> 8) & 0xFF);
+	ucaTxArray[1] = (usDacControlWord & 0xFF);
+
+	SPI_ExecuteTransaction(sSPI_TransactionParams);
+
 	IO0SET = CS_DAC_bm;
-	
 }
 
 void DAC_MCP4921_Set_mV(unsigned int uiVoltage)
@@ -96,19 +61,16 @@ void DAC_MCP4921_Set_mV(unsigned int uiVoltage)
 	DAC_MCP4921_Set(uiBitValue);
 }
 
-unsigned int sin_ram[360];
-
 int main()
 {
+	SPI_FrameParams sSPI_FrameParams;
 	unsigned int uiTime = 0;
-	unsigned int uiSinSampleCounter;
 	
-	for (uiSinSampleCounter = 0; uiSinSampleCounter < SIN_SAMPLES; uiSinSampleCounter++)
-	{
-		sin_ram[uiSinSampleCounter] = ((SIN_AMPLITUDE * sin((TWO_PI*uiSinSampleCounter)/SIN_SAMPLES)) + SIN_OFFSET);
-	}
-	
-
+	sSPI_FrameParams.ClkDivider = SPI_CLK_DIV;
+	sSPI_FrameParams.ucClsbf = 0;
+	sSPI_FrameParams.ucCpha = 0;
+	sSPI_FrameParams.ucCpol = 0;
+	SPI_ConfigMaster(sSPI_FrameParams);
 	
 	while (1)
 	{

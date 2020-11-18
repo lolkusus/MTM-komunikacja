@@ -407,11 +407,6 @@
               <FileType>5</FileType>
               <FilePath>.\sine.h</FilePath>
             </File>
-            <File>
-              <FileName>SPI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SPI.c</FilePath>
-            </File>
           </Files>
         </Group>
       </Groups>
