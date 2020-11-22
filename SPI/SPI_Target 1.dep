@@ -1,11 +1,24 @@
 Dependencies for Project 'SPI', Target 'Target 1': (DO NOT MODIFY !)
-F (.\Startup.s)(0x5F8EBE29)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\main.c)(0x5FB517DF)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\Philips-o .\main.o --omf_browse .\main.crf --depend .\main.d)
-I (C:\Keil_v5\ARM\Inc\Philips\LPC213X.H)(0x51C7FF8C)
-I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x51C7FD94)
-I (C:\Users\Dominik\Documents\GitHub\MTM-komunikacja\SPI\SPI.h)(0x5FB50F3D)
-I (C:\Users\Dominik\Documents\GitHub\MTM-komunikacja\SPI\sine.h)(0x5FA133A4)
-F (.\sine.h)(0x5FA133A4)()
-F (.\SPI.c)(0x5FB513DE)()
-I (C:\Users\Dominik\Documents\GitHub\MTM-komunikacja\SPI\SPI.h)(0x5FB50F3D)
-I (C:\Keil_v5\ARM\Inc\Philips\LPC213X.H)(0x51C7FF8C)
+F (.\Startup.s)(0x5F8AB52C)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\main.c)(0x5FBA9FD9)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\main.o --omf_browse .\main.crf --depend .\main.d)
+I (C:\Keil\ARM\Inc\Philips\LPC213X.H)(0x51C80D9C)
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\MCP23S09.h)(0x5FBA9FFE)
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\SPI.h)(0x5FBA92ED)
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\command_decoder.h)(0x5FBA9FAD)
+F (.\sine.h)(0x5FBA92ED)()
+F (.\SPI.c)(0x5FBA92ED)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\spi.o --omf_browse .\spi.crf --depend .\spi.d)
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\SPI.h)(0x5FBA92ED)
+I (C:\Keil\ARM\Inc\Philips\LPC213X.H)(0x51C80D9C)
+F (.\SPI.h)(0x5FBA92ED)()
+F (.\MCP23S09.c)(0x5FBA9F30)()
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\MCP23S09.h)(0x5FBA9FFE)
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\SPI.h)(0x5FBA92ED)
+F (.\command_decoder.h)(0x5FBA9FAD)()
+F (.\string.h)(0x5FBA9FFE)()
+F (.\command_decoder.c)(0x5FBA9FB4)()
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\command_decoder.h)(0x5FBA9FAD)
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\string.h)(0x5FBA9FFE)
+F (.\string.c)(0x5FBA9F9E)()
+I (C:\Users\Dominik\Documents\MTM-komunikacja\SPI\string.h)(0x5FBA9FFE)
+F (.\uart.c)(0x5FBAA145)()
+F (.\uart.h)(0x5FBAA13E)()

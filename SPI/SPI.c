@@ -70,15 +70,19 @@ void SPI_ExecuteTransaction(SPI_TransactionParams sSPI_TransactionParams)
 	
 	for (ucCurrentByte = 0; ucCurrentByte < ucTransactionLenght; ucCurrentByte++)
 	{
-		if ((ucCurrentByte >= sSPI_TransactionParams.ucTxBytesOffset) && (ucCurrentByte < sSPI_TransactionParams.ucNrOfBytesForTx))
+		if ((ucCurrentByte >= sSPI_TransactionParams.ucTxBytesOffset) && (ucCurrentByte < (sSPI_TransactionParams.ucNrOfBytesForTx + sSPI_TransactionParams.ucTxBytesOffset)))
 		{
 			S0SPDR = sSPI_TransactionParams.pucBytesForTx[ucCurrentTxByte];
+			while ((S0SPSR & SPIF_bm) == 0){}
 			ucCurrentTxByte++;
 		}
-		
-		while ((S0SPSR & SPIF_bm) == 0) {}
+		else
+		{
+			S0SPDR = 0x00;
+			while ((S0SPSR & SPIF_bm) == 0){}
+		}
 			
-		if ((ucCurrentByte >= sSPI_TransactionParams.ucRxBytesOffset) && (ucCurrentByte < sSPI_TransactionParams.ucNrOfBytesForRx))
+		if ((ucCurrentByte >= sSPI_TransactionParams.ucRxBytesOffset) && (ucCurrentByte < (sSPI_TransactionParams.ucNrOfBytesForRx + sSPI_TransactionParams.ucRxBytesOffset)))
 		{
 			sSPI_TransactionParams.pucBytesForRx[ucCurrentRxByte] = S0SPDR;
 			ucCurrentRxByte++;

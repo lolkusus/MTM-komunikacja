@@ -1,8 +1,6 @@
 #ifndef SPI_H
 #define SPI_H
 
-//TYPY
-
 typedef struct
 {
 	unsigned char ucCpha;				// clock phase
