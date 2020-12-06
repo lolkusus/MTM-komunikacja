@@ -16,6 +16,8 @@ int main()
 	unsigned int uiGPIO_InputValue;
 	char cReceivedString[RECIEVER_SIZE];
 	char cTransmitString[MAX_TRANSMIT_SIZE];
+	enum TransmitFlag {INIT, IDLE};
+	enum TransmitFlag eTransmitFlag = IDLE;
 	
 	sSPI_FrameParams.ClkDivider = SPI_CLK_DIV;
 	sSPI_FrameParams.ucClsbf = 0;
@@ -33,29 +35,32 @@ int main()
 			if(eReciever_GetStatus() == READY)
 				{
 					Reciever_GetStringCopy(cReceivedString);
-
 					DecodeMsg(cReceivedString);
 					
 					if((ucTokenCount > 0) & (asToken[0].eType == KEYWORD))
 					{
-						if(asToken[0].uValue.eKeyword == SPI_GET)
+						switch(asToken[0].uValue.eKeyword)
 						{
-							uiGPIO_InputValue = MCP_Get_Input();
-							
-							UIntToHexStr(uiGPIO_InputValue, cTransmitString);
-							
-							while(Transmiter_GetStatus() != FREE){} //czekaj az mozna nadawac
-							
-							Transmiter_SendString(cTransmitString);
-						}
-						else if((asToken[0].uValue.eKeyword == SPI_SET) & (asToken[1].eType == NUMBER) & (ucTokenCount > 1))
-						{
-							MCP_Set_Output(asToken[1].uValue.uiNumber & 0xFF); 
-						}
-						else
-						{
+							case SPI_GET:
+								uiGPIO_InputValue = MCP_Get_Input();
+								UIntToHexStr(uiGPIO_InputValue, cTransmitString);
+								eTransmitFlag = INIT;
+								break;
+								
+							case SPI_SET:
+								MCP_Set_Output(asToken[1].uValue.uiNumber & 0xFF); 
+								break;
+								
+							default:
+								break;
 						}
 					}
+				}
+				
+				if ((eTransmitFlag == INIT) && (Transmiter_GetStatus() == FREE))
+				{
+					Transmiter_SendString(cTransmitString);
+					eTransmitFlag = IDLE;
 				}
 		}
 }
