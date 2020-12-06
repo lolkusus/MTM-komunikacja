@@ -402,6 +402,11 @@
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+            <File>
+              <FileName>IIC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\IIC.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
