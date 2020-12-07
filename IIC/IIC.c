@@ -22,6 +22,7 @@
 
 //I2C0STAT
 #define IIC_START_TRANSMITTER_STATUS 	0x08			//Start condition transmitted
+#define IIC_REPEAT_START_TRANSMITTER_STATUS 	0x10			//Start condition transmitted
 #define IIC_TX_SLAVE_ADDR_ACK_STATUS 0x18				//Slave address ACK n TX mode
 #define IIC_TX_SLAVE_ADDR_NOT_ACK_STATUS 0x20 	//Slave did NOT ACK address in TX mode
 #define IIC_TX_SLAVE_DATA_ACK_STATUS 0x28				//Slave data ACK in TX mode
@@ -78,7 +79,8 @@ void IIC_NextRxTx()
 			else
 			{
 				pIIC_Params->eI2CTransmisionMode = RX;
-				I2C0CONCLR = STA_MASK;
+				pIIC_Params->ucSlaveAddress = (pIIC_Params->ucSlaveAddress | 0x01);
+				I2C0CONSET = STA_MASK;
 			}
 			break;
 		
@@ -92,6 +94,11 @@ __irq void IIC_Interrupt()
 	switch (I2C0STAT)
 	{
 		case IIC_START_TRANSMITTER_STATUS:
+			I2C0DAT = pIIC_Params->ucSlaveAddress; //address
+			I2C0CONCLR = STA_MASK; //wyczysci flage startu
+			break;
+		
+		case IIC_REPEAT_START_TRANSMITTER_STATUS:
 			I2C0DAT = pIIC_Params->ucSlaveAddress; //address
 			I2C0CONCLR = STA_MASK; //wyczysci flage startu
 			break;
@@ -160,7 +167,7 @@ void IIC_Init(void)
 void ExecuteTransaction(IIC_Params *sIIC_Params)
 {
 	pIIC_Params = sIIC_Params;
-	LedOn(5); //zgasic bledy
+	LedOn(4); //zgasic bledy
 	
 	if (pIIC_Params->eI2CTransmisionMode == RX)
 	{
