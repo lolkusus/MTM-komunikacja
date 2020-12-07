@@ -20,10 +20,10 @@ typedef struct
 	unsigned char ucDone;
 }IIC_Params;
 
-
-
 void IIC_Init(void);
 
-void ExecuteTransaction(IIC_Params sIIC_Params);
+void ExecuteTransaction(IIC_Params *sIIC_Params);
+
+unsigned char isTransactionDone(void);
 
 #endif
