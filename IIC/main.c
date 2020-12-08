@@ -1,11 +1,18 @@
 //#include <LPC213X.H>
 #include "IIC.h"
+#include "command_decoder.h"
+#include "uart.h"
+#include "string.h"
 
 //PCF8574
 #define PCF_ADDRESS 0x40 //address do zapisu (lsb to flaga zapis/odczyt)
 #define MCP_ADDRESS 0xA0
 
+//TX STRING SIZE
+#define MAX_TRANSMIT_SIZE 8 
+
 unsigned char ucPCF8574_Input;
+IIC_Params sIIC_Params;
 
 void Delay(unsigned int uiDelay) //funkcja delay z ppsw
 {
@@ -17,8 +24,7 @@ void Delay(unsigned int uiDelay) //funkcja delay z ppsw
 
 void PCF8574_Write (unsigned char ucData)
 {
-	unsigned char pucDataTX[1];
-	IIC_Params sIIC_Params;
+	static unsigned char pucDataTX[1];
 	
 	pucDataTX[0] = ucData;
 	sIIC_Params.eI2CTransmisionMode = TX;
@@ -32,8 +38,6 @@ void PCF8574_Write (unsigned char ucData)
 
 void PCF8574_Read ()
 {
-	IIC_Params sIIC_Params;
-	
 	sIIC_Params.eI2CTransmisionMode = RX;
 	sIIC_Params.pucBytesForRx = &ucPCF8574_Input;
 	sIIC_Params.ucNrOfBytesForRx = 1;
@@ -45,8 +49,7 @@ void PCF8574_Read ()
 
 void MC24LC64_ByteWrite(unsigned int WordAddress, unsigned char ucData)
 {
-	unsigned char pucDataTX[3];
-	IIC_Params sIIC_Params;
+	static unsigned char pucDataTX[3];
 	
 	pucDataTX[0] = ((WordAddress >> 8) & 0xFF);
 	pucDataTX[1] = (WordAddress & 0xFF);
@@ -63,8 +66,7 @@ void MC24LC64_ByteWrite(unsigned int WordAddress, unsigned char ucData)
 
 void MC24LC64_RandomRead(unsigned int WordAddress)
 {
-	unsigned char pucDataTX[2];
-	IIC_Params sIIC_Params;
+	static unsigned char pucDataTX[2];
 	
 	pucDataTX[0] = ((WordAddress >> 8) & 0xFF);
 	pucDataTX[1] = (WordAddress & 0xFF);
@@ -81,17 +83,57 @@ void MC24LC64_RandomRead(unsigned int WordAddress)
 
 int main()
 {
-	unsigned char test = 0;
+	char cReceivedString[RECIEVER_SIZE];
+	char cTransmitString[MAX_TRANSMIT_SIZE];
+	enum TransmitFlag {INIT, IDLE};
+	enum TransmitFlag eTransmitFlag = IDLE;
 	
+	DecodeMsg(cReceivedString);
+
 	IIC_Init();
-	MC24LC64_ByteWrite(0x0003,0xCA);
-	Delay(5);
+	UART_InitWithInt(9600);
+	PCF8574_Write(0x00);
+	while(isTransactionDone == 0){}
 	
 	while(1)
 	{
-		MC24LC64_RandomRead(test);
-		while(isTransactionDone() == 0){}
-		Delay(5);
-		test++;
+		if(eReciever_GetStatus() == READY) 
+				{
+					Reciever_GetStringCopy(cReceivedString);
+					DecodeMsg(cReceivedString);
+					
+					if(asToken[0].eType == KEYWORD)
+					{
+						switch(asToken[0].uValue.eKeyword)
+						{
+							case PORT_WRITE:
+								PCF8574_Write(asToken[1].uValue.uiNumber & 0xFF);
+								break;
+							
+							case PORT_READ:
+								PCF8574_Read();
+								eTransmitFlag = INIT;
+								break;
+							
+							case MEM_WRITE:
+								MC24LC64_ByteWrite(asToken[1].uValue.uiNumber, (asToken[2].uValue.uiNumber & 0xFF));
+								break;
+							
+							case MEM_READ:
+								MC24LC64_RandomRead(asToken[1].uValue.uiNumber);
+								eTransmitFlag = INIT;
+								break;
+							
+							default:
+								break;
+						}
+					}
+				}
+				
+				if ((eTransmitFlag == INIT) && (Transmiter_GetStatus() == FREE) && (isTransactionDone != 0))
+				{
+					Transmiter_SendString(cTransmitString);
+					eTransmitFlag = IDLE;
+				}
 	}
 }

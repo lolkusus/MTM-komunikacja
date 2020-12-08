@@ -1,6 +1,5 @@
 #include <LPC213X.H>
 #include "IIC.h"
-#include "led.h"
 
 //PINSEL0
 #define SCL_PINSEL_MASK (1<<4)
@@ -152,6 +151,7 @@ __irq void IIC_Interrupt()
 void IIC_Init(void)
 {
 	LedInit();
+	LedOn(4);
 	PINSEL0 = ((PINSEL0 & ~IIC_MASK) | IIC_CONFIG);
 	
 	I2C0CONCLR = (I2EN_MASK | STA_MASK | SI_MASK | AA_MASK); 
