@@ -3,6 +3,7 @@
 
 #define HEX_bm 0x000F
 #define MAX_KEYWORD_NR 4
+#define DELIM ' '
 
 struct RecieverBuffer{
 char cData[RECIEVER_SIZE];
@@ -22,7 +23,8 @@ struct Token asToken[MAX_TOKEN_NR];
 enum Stan {TOKEN,DELIMITER};
 unsigned char ucTokenNr = 0;
 
-unsigned char ucFindTokensInString(char *pcString){
+unsigned char ucFindTokensInString(char *pcString)
+{
 	enum Stan eState = DELIMITER;
 	unsigned char ucTokenCounter = 0;
 	unsigned char ucCharCounter = 0;
@@ -32,7 +34,7 @@ unsigned char ucFindTokensInString(char *pcString){
 		cActualChar = pcString[ucCharCounter];
 		switch(eState){
 			case DELIMITER: 	
-				if(cActualChar == DELIMITER){
+				if(cActualChar == DELIM){
 					eState = DELIMITER;
 				}else if(ucTokenCounter < MAX_TOKEN_NR){
 					eState = TOKEN;
@@ -43,7 +45,7 @@ unsigned char ucFindTokensInString(char *pcString){
 				}
 				break;
 			case TOKEN: 
-				if(cActualChar!= DELIMITER){
+				if(cActualChar!= DELIM){
 					eState = TOKEN;
 				}else{
 					eState = DELIMITER;

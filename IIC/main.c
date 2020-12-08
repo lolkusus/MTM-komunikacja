@@ -49,7 +49,7 @@ void PCF8574_Read ()
 
 void MC24LC64_ByteWrite(unsigned int WordAddress, unsigned char ucData)
 {
-	static unsigned char pucDataTX[3];
+	unsigned char pucDataTX[3];
 	
 	pucDataTX[0] = ((WordAddress >> 8) & 0xFF);
 	pucDataTX[1] = (WordAddress & 0xFF);
@@ -66,7 +66,7 @@ void MC24LC64_ByteWrite(unsigned int WordAddress, unsigned char ucData)
 
 void MC24LC64_RandomRead(unsigned int WordAddress)
 {
-	static unsigned char pucDataTX[2];
+	unsigned char pucDataTX[2];
 	
 	pucDataTX[0] = ((WordAddress >> 8) & 0xFF);
 	pucDataTX[1] = (WordAddress & 0xFF);
@@ -83,7 +83,7 @@ void MC24LC64_RandomRead(unsigned int WordAddress)
 
 int main()
 {
-	char cReceivedString[RECIEVER_SIZE];
+	char cReceivedString[RECIEVER_SIZE] = "memwr 0xDCBA 0x77";
 	char cTransmitString[MAX_TRANSMIT_SIZE];
 	enum TransmitFlag {INIT, IDLE};
 	enum TransmitFlag eTransmitFlag = IDLE;
@@ -93,11 +93,20 @@ int main()
 	IIC_Init();
 	UART_InitWithInt(9600);
 	PCF8574_Write(0x00);
-	while(isTransactionDone == 0){}
+	while(sIIC_Params.ucDone == 0){}
 	
 	while(1)
 	{
-		if(eReciever_GetStatus() == READY) 
+		if (sIIC_Params.ucDone != 0)
+		{
+				if ((eTransmitFlag == INIT) && (Transmiter_GetStatus() == FREE))
+				{
+					UIntToHexStr(ucPCF8574_Input, cTransmitString);
+					Transmiter_SendString(cTransmitString);
+					eTransmitFlag = IDLE;
+				}
+				
+				if(eReciever_GetStatus() == READY) 
 				{
 					Reciever_GetStringCopy(cReceivedString);
 					DecodeMsg(cReceivedString);
@@ -107,7 +116,7 @@ int main()
 						switch(asToken[0].uValue.eKeyword)
 						{
 							case PORT_WRITE:
-								PCF8574_Write(asToken[1].uValue.uiNumber & 0xFF);
+								PCF8574_Write(asToken[1].uValue.uiNumber);
 								break;
 							
 							case PORT_READ:
@@ -129,11 +138,6 @@ int main()
 						}
 					}
 				}
-				
-				if ((eTransmitFlag == INIT) && (Transmiter_GetStatus() == FREE) && (isTransactionDone != 0))
-				{
-					Transmiter_SendString(cTransmitString);
-					eTransmitFlag = IDLE;
-				}
+			}
 	}
 }

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\IIC.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\IIC.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue Dec 08 12:03:37 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue Dec 08 13:35:10 2020
 <BR><P>
 <H3>Maximum Stack Usage =         80 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -38,15 +38,14 @@ Function Pointers
 </H3><UL>
  <LI><a href="#[7]">DAbt_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[9]">FIQ_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
- <LI><a href="#[28]">IIC_Interrupt</a> from iic.o(.text) referenced from iic.o(.text)
+ <LI><a href="#[29]">IIC_Interrupt</a> from iic.o(.text) referenced from iic.o(.text)
  <LI><a href="#[8]">IRQ_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[6]">PAbt_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[3]">Reset_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[5]">SWI_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[38]">UART0_Interrupt</a> from uart.o(.text) referenced from uart.o(.text)
  <LI><a href="#[4]">Undef_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
- <LI><a href="#[d]">__main</a> from __main.o(!!!main) referenced from startup.o(RESET)
- <LI><a href="#[c]">isTransactionDone</a> from iic.o(.text) referenced from main.o(.text)
+ <LI><a href="#[c]">__main</a> from __main.o(!!!main) referenced from startup.o(RESET)
  <LI><a href="#[b]">main</a> from main.o(.text) referenced from rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
 </UL>
 <P>
@@ -56,31 +55,31 @@ Global Symbols
 <P><STRONG><a name="[3]"></a>Reset_Handler</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(RESET))
 <BR>[Address Reference Count : 1]<UL><LI> startup.o(RESET)
 </UL>
-<P><STRONG><a name="[d]"></a>__main</STRONG> (ARM, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
-<BR><BR>[Calls]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
-<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+<P><STRONG><a name="[c]"></a>__main</STRONG> (ARM, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
+<BR><BR>[Calls]<UL><LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+<LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
 </UL>
 
-<P><STRONG><a name="[e]"></a>__scatterload</STRONG> (ARM, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
-<BR><BR>[Called By]<UL><LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+<P><STRONG><a name="[d]"></a>__scatterload</STRONG> (ARM, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
+<BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[10]"></a>__scatterload_rt2</STRONG> (ARM, 52 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+<P><STRONG><a name="[f]"></a>__scatterload_rt2</STRONG> (ARM, 52 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
 </UL>
 
 <P><STRONG><a name="[43]"></a>__scatterload_null</STRONG> (ARM, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
-<P><STRONG><a name="[11]"></a>__scatterload_copy</STRONG> (ARM, 40 bytes, Stack size unknown bytes, __scatter_copy.o(!!handler_copy), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+<P><STRONG><a name="[10]"></a>__scatterload_copy</STRONG> (ARM, 40 bytes, Stack size unknown bytes, __scatter_copy.o(!!handler_copy), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+<BR>[Called By]<UL><LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
 </UL>
 
 <P><STRONG><a name="[44]"></a>__scatterload_zeroinit</STRONG> (ARM, 44 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
 
-<P><STRONG><a name="[15]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_li (via Veneer)
+<P><STRONG><a name="[14]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_li (via Veneer)
 </UL>
 
 <P><STRONG><a name="[45]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
@@ -123,8 +122,8 @@ Global Symbols
 
 <P><STRONG><a name="[58]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
 
-<P><STRONG><a name="[19]"></a>__rt_lib_shutdown</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_ls (via Veneer)
+<P><STRONG><a name="[18]"></a>__rt_lib_shutdown</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_ls (via Veneer)
 </UL>
 
 <P><STRONG><a name="[59]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000006))
@@ -139,171 +138,170 @@ Global Symbols
 
 <P><STRONG><a name="[5e]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000B))
 
-<P><STRONG><a name="[f]"></a>__rt_entry</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry.o(.ARM.Collect$$rtentry$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
-<LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+<P><STRONG><a name="[e]"></a>__rt_entry</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry.o(.ARM.Collect$$rtentry$$00000000))
+<BR><BR>[Called By]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
 <P><STRONG><a name="[5f]"></a>__rt_entry_presh_1</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000002))
 
-<P><STRONG><a name="[12]"></a>__rt_entry_sh</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry4.o(.ARM.Collect$$rtentry$$00000004))
+<P><STRONG><a name="[11]"></a>__rt_entry_sh</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry4.o(.ARM.Collect$$rtentry$$00000004))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_sh &rArr; __user_setup_stackheap
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+<BR>[Calls]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[14]"></a>__rt_entry_li</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000A))
-<BR><BR>[Calls]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+<P><STRONG><a name="[13]"></a>__rt_entry_li</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000A))
+<BR><BR>[Calls]<UL><LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
 </UL>
 
 <P><STRONG><a name="[60]"></a>__rt_entry_postsh_1</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
-<P><STRONG><a name="[16]"></a>__rt_entry_main</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Calls]<UL><LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via BX)
+<P><STRONG><a name="[15]"></a>__rt_entry_main</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
+<BR><BR>[Calls]<UL><LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via BX)
 </UL>
 
 <P><STRONG><a name="[61]"></a>__rt_entry_postli_1</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
 
 <P><STRONG><a name="[3e]"></a>__rt_exit</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtexit.o(.ARM.Collect$$rtexit$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via Veneer)
+<BR><BR>[Called By]<UL><LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via Veneer)
 </UL>
 
-<P><STRONG><a name="[18]"></a>__rt_exit_ls</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000003))
-<BR><BR>[Calls]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (via Veneer)
+<P><STRONG><a name="[17]"></a>__rt_exit_ls</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000003))
+<BR><BR>[Calls]<UL><LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (via Veneer)
 </UL>
 
 <P><STRONG><a name="[62]"></a>__rt_exit_prels_1</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
 
-<P><STRONG><a name="[1a]"></a>__rt_exit_exit</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
-<BR><BR>[Calls]<UL><LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit (via Veneer)
+<P><STRONG><a name="[19]"></a>__rt_exit_exit</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
+<BR><BR>[Calls]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit (via Veneer)
 </UL>
 
 <P><STRONG><a name="[3c]"></a>__user_initial_stackheap</STRONG> (ARM, 0 bytes, Stack size unknown bytes, startup.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+<BR><BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
 <P><STRONG><a name="[63]"></a>Delay</STRONG> (ARM, 32 bytes, Stack size 0 bytes, main.o(.text), UNUSED)
 
-<P><STRONG><a name="[1c]"></a>PCF8574_Write</STRONG> (ARM, 76 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[1b]"></a>PCF8574_Write</STRONG> (ARM, 76 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = PCF8574_Write &rArr; ExecuteTransaction
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
+<BR>[Calls]<UL><LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1e]"></a>PCF8574_Read</STRONG> (ARM, 64 bytes, Stack size 8 bytes, main.o(.text))
+<P><STRONG><a name="[1d]"></a>PCF8574_Read</STRONG> (ARM, 64 bytes, Stack size 8 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = PCF8574_Read &rArr; ExecuteTransaction
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
+<BR>[Calls]<UL><LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1f]"></a>MC24LC64_ByteWrite</STRONG> (ARM, 100 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[1e]"></a>MC24LC64_ByteWrite</STRONG> (ARM, 84 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = MC24LC64_ByteWrite &rArr; ExecuteTransaction
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
+<BR>[Calls]<UL><LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[20]"></a>MC24LC64_RandomRead</STRONG> (ARM, 96 bytes, Stack size 8 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = MC24LC64_RandomRead &rArr; ExecuteTransaction
+<P><STRONG><a name="[1f]"></a>MC24LC64_RandomRead</STRONG> (ARM, 88 bytes, Stack size 16 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = MC24LC64_RandomRead &rArr; ExecuteTransaction
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
+<BR>[Calls]<UL><LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b]"></a>main</STRONG> (ARM, 288 bytes, Stack size 40 bytes, main.o(.text))
+<P><STRONG><a name="[b]"></a>main</STRONG> (ARM, 328 bytes, Stack size 40 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80 + Unknown Stack Size
 <LI>Call Chain = main &rArr; DecodeMsg &rArr; DecodeTokens &rArr; eStringToKeyword
 </UL>
-<BR>[Calls]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eReciever_GetStatus
+<BR>[Calls]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eReciever_GetStatus
+<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UIntToHexStr
 <LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_InitWithInt
-<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmiter_SendString
-<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmiter_GetStatus
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_GetStringCopy
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmiter_SendString
+<LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmiter_GetStatus
+<LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_GetStringCopy
 <LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Init
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeMsg
-<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_RandomRead
-<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_ByteWrite
-<LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Read
-<LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Write
+<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_RandomRead
+<LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_ByteWrite
+<LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Read
+<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Write
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
 </UL>
-<P><STRONG><a name="[29]"></a>IIC_NextRxTx</STRONG> (ARM, 448 bytes, Stack size 0 bytes, iic.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Interrupt
+<P><STRONG><a name="[2a]"></a>IIC_NextRxTx</STRONG> (ARM, 448 bytes, Stack size 0 bytes, iic.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Interrupt
 </UL>
 
-<P><STRONG><a name="[28]"></a>IIC_Interrupt</STRONG> (ARM, 420 bytes, Stack size 24 bytes, iic.o(.text))
+<P><STRONG><a name="[29]"></a>IIC_Interrupt</STRONG> (ARM, 488 bytes, Stack size 24 bytes, iic.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = IIC_Interrupt
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
-<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_NextRxTx
+<BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
+<LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_NextRxTx
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> iic.o(.text)
 </UL>
 <P><STRONG><a name="[22]"></a>IIC_Init</STRONG> (ARM, 116 bytes, Stack size 8 bytes, iic.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = IIC_Init &rArr; LedInit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
-<LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedInit
+<BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
+<LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedInit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1d]"></a>ExecuteTransaction</STRONG> (ARM, 152 bytes, Stack size 8 bytes, iic.o(.text))
+<P><STRONG><a name="[1c]"></a>ExecuteTransaction</STRONG> (ARM, 152 bytes, Stack size 8 bytes, iic.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ExecuteTransaction
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
+<BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_RandomRead
-<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_ByteWrite
-<LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Read
-<LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Write
+<BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_RandomRead
+<LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MC24LC64_ByteWrite
+<LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Read
+<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCF8574_Write
 </UL>
 
-<P><STRONG><a name="[c]"></a>isTransactionDone</STRONG> (ARM, 16 bytes, Stack size 0 bytes, iic.o(.text))
-<BR>[Address Reference Count : 1]<UL><LI> main.o(.text)
-</UL>
-<P><STRONG><a name="[2a]"></a>LedOn</STRONG> (ARM, 136 bytes, Stack size 0 bytes, led.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedInit
-<LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Interrupt
+<P><STRONG><a name="[2b]"></a>LedOn</STRONG> (ARM, 136 bytes, Stack size 0 bytes, led.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedInit
+<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Interrupt
 <LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Init
-<LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
+<LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ExecuteTransaction
 </UL>
 
-<P><STRONG><a name="[2b]"></a>LedInit</STRONG> (ARM, 40 bytes, Stack size 4 bytes, led.o(.text))
+<P><STRONG><a name="[2c]"></a>LedInit</STRONG> (ARM, 40 bytes, Stack size 4 bytes, led.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LedInit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
+<BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedOn
 </UL>
 <BR>[Called By]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Init
 </UL>
 
-<P><STRONG><a name="[30]"></a>ucFindTokensInString</STRONG> (ARM, 176 bytes, Stack size 8 bytes, command_decoder.o(.text))
+<P><STRONG><a name="[31]"></a>ucFindTokensInString</STRONG> (ARM, 176 bytes, Stack size 8 bytes, command_decoder.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ucFindTokensInString
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeMsg
 </UL>
 
-<P><STRONG><a name="[2c]"></a>eStringToKeyword</STRONG> (ARM, 96 bytes, Stack size 16 bytes, command_decoder.o(.text))
+<P><STRONG><a name="[2d]"></a>eStringToKeyword</STRONG> (ARM, 96 bytes, Stack size 16 bytes, command_decoder.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = eStringToKeyword
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eCompareString
+<BR>[Calls]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eCompareString
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeTokens
+<BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeTokens
 </UL>
 
-<P><STRONG><a name="[2e]"></a>DecodeTokens</STRONG> (ARM, 168 bytes, Stack size 16 bytes, command_decoder.o(.text))
+<P><STRONG><a name="[2f]"></a>DecodeTokens</STRONG> (ARM, 168 bytes, Stack size 16 bytes, command_decoder.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = DecodeTokens &rArr; eStringToKeyword
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eHexStringToUInt
-<LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eStringToKeyword
+<BR>[Calls]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eHexStringToUInt
+<LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eStringToKeyword
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeMsg
 </UL>
@@ -311,56 +309,59 @@ Global Symbols
 <P><STRONG><a name="[21]"></a>DecodeMsg</STRONG> (ARM, 52 bytes, Stack size 8 bytes, command_decoder.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = DecodeMsg &rArr; DecodeTokens &rArr; eStringToKeyword
 </UL>
-<BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReplaceCharactersInString
-<LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeTokens
-<LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ucFindTokensInString
+<BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReplaceCharactersInString
+<LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeTokens
+<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ucFindTokensInString
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[33]"></a>Reciever_Empty</STRONG> (ARM, 20 bytes, Stack size 0 bytes, command_decoder.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_PutCharacterToBuffer
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_GetStringCopy
+<P><STRONG><a name="[34]"></a>Reciever_Empty</STRONG> (ARM, 20 bytes, Stack size 0 bytes, command_decoder.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_PutCharacterToBuffer
+<LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_GetStringCopy
 </UL>
 
-<P><STRONG><a name="[32]"></a>Reciever_PutCharacterToBuffer</STRONG> (ARM, 136 bytes, Stack size 4 bytes, command_decoder.o(.text))
+<P><STRONG><a name="[33]"></a>Reciever_PutCharacterToBuffer</STRONG> (ARM, 136 bytes, Stack size 4 bytes, command_decoder.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = Reciever_PutCharacterToBuffer
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_Empty
+<BR>[Calls]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_Empty
 </UL>
 <BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Interrupt
 </UL>
 
-<P><STRONG><a name="[24]"></a>eReciever_GetStatus</STRONG> (ARM, 12 bytes, Stack size 0 bytes, command_decoder.o(.text))
+<P><STRONG><a name="[27]"></a>eReciever_GetStatus</STRONG> (ARM, 12 bytes, Stack size 0 bytes, command_decoder.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[25]"></a>Reciever_GetStringCopy</STRONG> (ARM, 80 bytes, Stack size 4 bytes, command_decoder.o(.text))
+<P><STRONG><a name="[28]"></a>Reciever_GetStringCopy</STRONG> (ARM, 80 bytes, Stack size 4 bytes, command_decoder.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = Reciever_GetStringCopy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_Empty
+<BR>[Calls]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_Empty
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[2d]"></a>eCompareString</STRONG> (ARM, 68 bytes, Stack size 0 bytes, string.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eStringToKeyword
+<P><STRONG><a name="[2e]"></a>eCompareString</STRONG> (ARM, 68 bytes, Stack size 0 bytes, string.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;eStringToKeyword
 </UL>
 
-<P><STRONG><a name="[31]"></a>ReplaceCharactersInString</STRONG> (ARM, 52 bytes, Stack size 0 bytes, string.o(.text))
+<P><STRONG><a name="[32]"></a>ReplaceCharactersInString</STRONG> (ARM, 52 bytes, Stack size 0 bytes, string.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeMsg
 </UL>
 
-<P><STRONG><a name="[2f]"></a>eHexStringToUInt</STRONG> (ARM, 224 bytes, Stack size 0 bytes, string.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeTokens
+<P><STRONG><a name="[30]"></a>eHexStringToUInt</STRONG> (ARM, 224 bytes, Stack size 0 bytes, string.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DecodeTokens
 </UL>
 
-<P><STRONG><a name="[35]"></a>UIntToHexStr</STRONG> (ARM, 112 bytes, Stack size 4 bytes, string.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppendUIntToString
+<P><STRONG><a name="[25]"></a>UIntToHexStr</STRONG> (ARM, 112 bytes, Stack size 4 bytes, string.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = UIntToHexStr
+</UL>
+<BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AppendUIntToString
+<LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[34]"></a>AppendUIntToString</STRONG> (ARM, 60 bytes, Stack size 16 bytes, string.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UIntToHexStr
+<P><STRONG><a name="[35]"></a>AppendUIntToString</STRONG> (ARM, 60 bytes, Stack size 16 bytes, string.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UIntToHexStr
 </UL>
 
 <P><STRONG><a name="[37]"></a>CopyString</STRONG> (ARM, 52 bytes, Stack size 0 bytes, string.o(.text), UNUSED)
@@ -375,7 +376,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Interrupt
 </UL>
 
-<P><STRONG><a name="[26]"></a>Transmiter_GetStatus</STRONG> (ARM, 36 bytes, Stack size 0 bytes, uart.o(.text))
+<P><STRONG><a name="[24]"></a>Transmiter_GetStatus</STRONG> (ARM, 36 bytes, Stack size 0 bytes, uart.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_Interrupt
 <LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -384,8 +385,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = UART0_Interrupt &rArr; Reciever_PutCharacterToBuffer
 </UL>
 <BR>[Calls]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmiter_GetCharacterFromBuffer
-<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_PutCharacterToBuffer
-<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmiter_GetStatus
+<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reciever_PutCharacterToBuffer
+<LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmiter_GetStatus
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> uart.o(.text)
 </UL>
@@ -398,54 +399,66 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[27]"></a>Transmiter_SendString</STRONG> (ARM, 100 bytes, Stack size 0 bytes, uart.o(.text))
+<P><STRONG><a name="[26]"></a>Transmiter_SendString</STRONG> (ARM, 100 bytes, Stack size 0 bytes, uart.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[64]"></a>__aeabi_idiv</STRONG> (ARM, 0 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text), UNUSED)
+<P><STRONG><a name="[20]"></a>__aeabi_memcpy4</STRONG> (ARM, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
+</UL>
+<BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
 
-<P><STRONG><a name="[65]"></a>__aeabi_idivmod</STRONG> (ARM, 384 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text), UNUSED)
+<P><STRONG><a name="[64]"></a>__aeabi_memcpy8</STRONG> (ARM, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[66]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[65]"></a>__rt_memcpy_w</STRONG> (ARM, 100 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[67]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[66]"></a>_memcpy_lastbytes_aligned</STRONG> (ARM, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[68]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[67]"></a>__aeabi_idiv</STRONG> (ARM, 0 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text), UNUSED)
 
-<P><STRONG><a name="[13]"></a>__user_setup_stackheap</STRONG> (ARM, 96 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
+<P><STRONG><a name="[68]"></a>__aeabi_idivmod</STRONG> (ARM, 384 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text), UNUSED)
+
+<P><STRONG><a name="[69]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[6a]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[6b]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[12]"></a>__user_setup_stackheap</STRONG> (ARM, 96 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
 <LI>Call Chain = __user_setup_stackheap
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_initial_stackheap
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_sh
+<BR>[Called By]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_sh
 </UL>
 
-<P><STRONG><a name="[17]"></a>exit</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, exit.o(.text))
+<P><STRONG><a name="[16]"></a>exit</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, exit.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit (via Veneer)
 <LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_call_atexit_fns (Weak Reference)
 </UL>
-<BR>[Called By]<UL><LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
+<BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[69]"></a>__user_libspace</STRONG> (ARM, 12 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[6c]"></a>__user_libspace</STRONG> (ARM, 12 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[3b]"></a>__user_perproc_libspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, libspace.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+<BR><BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[6a]"></a>__user_perthread_libspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[6d]"></a>__user_perthread_libspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
-<P><STRONG><a name="[1b]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit (via Veneer)
+<P><STRONG><a name="[1a]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit (via Veneer)
 </UL>
 
-<P><STRONG><a name="[6b]"></a>__I$use$semihosting</STRONG> (ARM, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[6e]"></a>__I$use$semihosting</STRONG> (ARM, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[6c]"></a>__use_no_semihosting_swi</STRONG> (ARM, 4 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[6f]"></a>__use_no_semihosting_swi</STRONG> (ARM, 4 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[6d]"></a>__aeabi_uidiv</STRONG> (ARM, 0 bytes, Stack size 0 bytes, aeabi_sdiv.o(.text_udiv), UNUSED)
+<P><STRONG><a name="[70]"></a>__aeabi_uidiv</STRONG> (ARM, 0 bytes, Stack size 0 bytes, aeabi_sdiv.o(.text_udiv), UNUSED)
 
 <P><STRONG><a name="[3a]"></a>__aeabi_uidivmod</STRONG> (ARM, 36 bytes, Stack size 0 bytes, aeabi_sdiv.o(.text_udiv))
 <BR><BR>[Calls]<UL><LI><a href="#[42]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div_large
@@ -456,7 +469,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_InitWithInt
 </UL>
 
-<P><STRONG><a name="[6e]"></a>__semihosting_library_function</STRONG> (ARM, 0 bytes, Stack size 0 bytes, indicate_semi.o(.text), UNUSED)
+<P><STRONG><a name="[71]"></a>__semihosting_library_function</STRONG> (ARM, 0 bytes, Stack size 0 bytes, indicate_semi.o(.text), UNUSED)
 <P>
 <H3>
 Local Symbols
@@ -523,6 +536,6 @@ Local Symbols
 Undefined Global Symbols
 </H3>
 <P><STRONG><a name="[3d]"></a>_call_atexit_fns</STRONG> (ARM, 0 bytes, Stack size 0 bytes, UNDEFINED)
-<BR><BR>[Called By]<UL><LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
+<BR><BR>[Called By]<UL><LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 </UL>
 <HR></body></html>

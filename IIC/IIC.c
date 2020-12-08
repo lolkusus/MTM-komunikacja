@@ -25,11 +25,12 @@
 #define IIC_TX_SLAVE_ADDR_ACK_STATUS 0x18				//Slave address ACK n TX mode
 #define IIC_TX_SLAVE_ADDR_NOT_ACK_STATUS 0x20 	//Slave did NOT ACK address in TX mode
 #define IIC_TX_SLAVE_DATA_ACK_STATUS 0x28				//Slave data ACK in TX mode
+#define IIC_TX_SLAVE_DATA_NOT_ACK_STATUS 0x30				//Slave data NOT ACK in TX mode
 #define IIC_ARBITRATION_LOST 0x38								//Arbitration lost 
 #define IIC_RX_SLAVE_ADDR_ACK_STATUS 0x40				//Slave address ACK in RX mode
 #define IIC_RX_SLAVE_ADDR_NOT_ACK_STATUS 0x48 	//Slave did NOT ACK address in RX mode 
 #define IIC_RX_MASTER_DATA_ACK_STATUS 0x50 	//Slave did NOT ACK address in RX mode 
-#define IIC_RX_MASTER_DATA_NOT_ACK_STATUS 0x58 	//Slave did NOT ACK address in RX mode 
+#define IIC_RX_MASTER_DATA_NOT_ACK_STATUS 0x58 	//Master did NOT ACK address in RX mode 
 
 //VIC
 #define VIC_IIC_CHANNER_NR 9
@@ -57,15 +58,16 @@ void IIC_NextRxTx()
 			break;
 		
 		case RX:
-			if(ucCurrentRxByte < pIIC_Params->ucNrOfBytesForRx)
+			if((ucCurrentRxByte+1) < pIIC_Params->ucNrOfBytesForRx)
 			{
-				pIIC_Params->pucBytesForRx[ucCurrentRxByte] = I2C0DAT;
+				pIIC_Params->pucBytesForRx[ucCurrentRxByte-1] = I2C0DAT;
 				ucCurrentRxByte++;
 				I2C0CONSET = AA_MASK;
 			}
 			else
 			{
-				I2C0CONSET &= ~AA_MASK;
+				//pIIC_Params->pucBytesForRx[ucCurrentRxByte] = I2C0DAT;
+				I2C0CONCLR = AA_MASK;
 			}
 			break;
 		
@@ -116,18 +118,24 @@ __irq void IIC_Interrupt()
 			IIC_NextRxTx();
 			break;
 		
+		case IIC_TX_SLAVE_DATA_NOT_ACK_STATUS:
+			LedOn(1);	//blad
+			pIIC_Params->ucDone = 1;
+			I2C0CONSET = STO_MASK;
+			break;
+		
 		case IIC_ARBITRATION_LOST:
-			LedOn(1); //blad
+			LedOn(2); //blad
 			pIIC_Params->ucDone = 1;
 			I2C0CONSET = STO_MASK;
 			break;
 		
 		case IIC_RX_SLAVE_ADDR_ACK_STATUS:
-			I2C0DAT = 0xFF;		//linia musi byc recesywna, a wysylam tylko zeby byl zegar
+			IIC_NextRxTx();
 			break;
 		
 		case IIC_RX_SLAVE_ADDR_NOT_ACK_STATUS:
-			LedOn(2); //blad
+			LedOn(3); //blad
 			pIIC_Params->ucDone = 1;
 			I2C0CONSET = STO_MASK;
 			break;
@@ -137,6 +145,7 @@ __irq void IIC_Interrupt()
 			break;
 		
 		case IIC_RX_MASTER_DATA_NOT_ACK_STATUS:
+			pIIC_Params->pucBytesForRx[ucCurrentRxByte] = I2C0DAT;
 			pIIC_Params->ucDone = 1;
 			I2C0CONSET = STO_MASK; //ostatnich danych nie nie ackuje, tylko nackuje i stopuje
 			break;
@@ -184,7 +193,3 @@ void ExecuteTransaction(IIC_Params *sIIC_Params)
 	I2C0CONSET = STA_MASK;
 }
 
-unsigned char isTransactionDone()
-{
-	return pIIC_Params->ucDone;
-}
