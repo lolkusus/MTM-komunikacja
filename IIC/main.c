@@ -99,11 +99,14 @@ int main()
 	{
 		if (sIIC_Params.ucDone != 0)
 		{
-				if ((eTransmitFlag == INIT) && (Transmiter_GetStatus() == FREE))
+				if (Transmiter_GetStatus() == FREE)
 				{
+					if(eTransmitFlag == INIT)
+					{
 					UIntToHexStr(ucPCF8574_Input, cTransmitString);
 					Transmiter_SendString(cTransmitString);
 					eTransmitFlag = IDLE;
+					}
 				}
 				
 				if(eReciever_GetStatus() == READY) 
@@ -125,7 +128,7 @@ int main()
 								break;
 							
 							case MEM_WRITE:
-								MC24LC64_ByteWrite(asToken[1].uValue.uiNumber, (asToken[2].uValue.uiNumber & 0xFF));
+								MC24LC64_ByteWrite(asToken[1].uValue.uiNumber, ((unsigned char)asToken[2].uValue.uiNumber & 0xFF));
 								break;
 							
 							case MEM_READ:
